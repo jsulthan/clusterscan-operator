@@ -1,0 +1,16 @@
+apiVersion: scan.example.com/v1
+kind: ClusterScan
+metadata:
+  name: kube-bench-scan-recurring
+spec:
+  type: recurring
+  schedule: "*/1 * * * *"  # Every 1 minutes
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: kube-bench
+            image: aquasec/kube-bench:latest
+            command: ["kube-bench", "--json"]
+          restartPolicy: Never

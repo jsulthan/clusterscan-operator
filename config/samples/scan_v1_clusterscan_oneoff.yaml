@@ -1,0 +1,15 @@
+apiVersion: scan.example.com/v1
+kind: ClusterScan
+metadata:
+  name: clusterscan-oneoff
+spec:
+  type: one-off
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: kube-bench
+            image: aquasec/kube-bench:latest
+            command: ["kube-bench", "--json"]
+          restartPolicy: Never
